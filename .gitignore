@@ -1,0 +1,25 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+*.wav
+# 模型由 download_tasks.gradle 构建时自动下载，不入库
+app/src/main/assets/
+# 发布签名密钥（务必本地备份，勿提交）
+keystore.properties
+*.keystore
+*.jks
+/app/release.keystore
+# 本地 AI 工具配置（含本机路径，不发布）
+.opencode/

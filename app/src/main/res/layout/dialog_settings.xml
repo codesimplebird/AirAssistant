@@ -1,0 +1,2575 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_dialog_rounded"
+    android:overScrollMode="never">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingStart="20dp"
+        android:paddingTop="16dp"
+        android:paddingEnd="20dp"
+        android:paddingBottom="20dp">
+
+        <!-- 閺嶅洭顣介敍鍧昈S 妞嬪孩鐗哥仦鍛厬閿?-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/settings_dialog_title"
+            android:textColor="#1C1C1E"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <!-- 手势操作卡片：右挥/左挥开关 + 操作方式 + 参数区 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/label_gesture_action_section"
+            android:textColor="#8E8E93"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_group_card"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_right_wave"
+                    android:textColor="#1C1C1E"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_right_wave"
+                    style="@style/AppSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <!-- 右挥手势下的操作+参数（灰底次级区，未开启时隐藏） -->
+            <LinearLayout
+                android:id="@+id/container_right_gesture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_sub_group"
+                android:orientation="vertical">
+
+
+            <!-- 右挥操作分段：上滑/下滑/点击/长按 -->
+            <RelativeLayout
+                android:id="@+id/row_right_action"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_right_action"
+                    android:textColor="#8E8E93"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    android:id="@+id/segmented_right_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_stepper"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:id="@+id/seg_right_up"
+                        android:layout_width="42dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/bg_segment_selected"
+                        android:gravity="center"
+                        android:text="@string/segment_up"
+                        android:textColor="@color/segment_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seg_right_down"
+                        android:layout_width="42dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/bg_segment_selected"
+                        android:gravity="center"
+                        android:text="@string/segment_down"
+                        android:textColor="@color/segment_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seg_right_click"
+                        android:layout_width="42dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/bg_segment_selected"
+                        android:gravity="center"
+                        android:text="@string/action_click"
+                        android:textColor="@color/segment_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seg_right_longpress"
+                        android:layout_width="42dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/bg_segment_selected"
+                        android:gravity="center"
+                        android:text="@string/action_longpress"
+                        android:textColor="@color/segment_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:background="#E5E5EA" />
+
+            <!-- 右挥参数折叠标题 -->
+            <RelativeLayout
+                android:id="@+id/row_toggle_right_params"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackground">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/label_params"
+                    android:textColor="#8E8E93"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/chevron_right_params"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="14dp"
+                    android:src="@drawable/ic_chevron" />
+            </RelativeLayout>
+
+            <!-- 右挥参数区：内容随右挥操作类型联动 -->
+            <LinearLayout
+                android:id="@+id/container_right_params"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/row_swipe_x_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_swipe_x"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_x_minus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/swipe_x_value_r"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_x_plus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_swipe_x_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_swipe_start_y_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_swipe_start"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_start_y_minus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/swipe_start_y_value_r"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_start_y_plus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_swipe_y_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_swipe_end_y_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_swipe_end"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_end_y_minus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/swipe_end_y_value_r"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_end_y_plus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_swipe_end_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_swipe_duration_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_swipe_speed"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_duration_minus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/swipe_duration_value_r"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_duration_plus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_swipe_dur_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_unit_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_position_unit"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner_unit_r"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:entries="@array/unit_entries"
+                        android:minWidth="100dp"
+                        android:spinnerMode="dropdown"
+                        android:theme="@style/BottomSheetSpinnerItemStyle" />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_unit_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_click_x_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_click_x"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/click_x_minus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/click_x_value_r"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/click_x_plus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_click_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_click_y_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_click_y"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/click_y_minus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/click_y_value_r"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/click_y_plus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_longpress_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_longpress_x_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_longpress_x"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_x_minus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/longpress_x_value_r"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_x_plus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_longpress_xy_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_longpress_y_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_longpress_y"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_y_minus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/longpress_y_value_r"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_y_plus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_longpress_dur_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_longpress_duration_r"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_longpress_duration"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_duration_minus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/longpress_duration_value_r"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_duration_plus_r"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:background="#E5E5EA" />
+
+            <!-- 左挥手势开关 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_left_wave"
+                    android:textColor="#1C1C1E"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_left_wave"
+                    style="@style/AppSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <!-- 左挥手势下的操作+参数（灰底次级区，未开启时隐藏） -->
+            <LinearLayout
+                android:id="@+id/container_left_gesture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_sub_group"
+                android:orientation="vertical">
+
+            <!-- 左挥操作分段：上滑/下滑/点击/长按 -->
+            <RelativeLayout
+                android:id="@+id/row_left_action"
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_left_action"
+                    android:textColor="#8E8E93"
+                    android:textSize="13sp" />
+
+                <LinearLayout
+                    android:id="@+id/segmented_left_action"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_stepper"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <TextView
+                        android:id="@+id/seg_left_up"
+                        android:layout_width="42dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/bg_segment_selected"
+                        android:gravity="center"
+                        android:text="@string/segment_up"
+                        android:textColor="@color/segment_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seg_left_down"
+                        android:layout_width="42dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/bg_segment_selected"
+                        android:gravity="center"
+                        android:text="@string/segment_down"
+                        android:textColor="@color/segment_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seg_left_click"
+                        android:layout_width="42dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/bg_segment_selected"
+                        android:gravity="center"
+                        android:text="@string/action_click"
+                        android:textColor="@color/segment_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/seg_left_longpress"
+                        android:layout_width="42dp"
+                        android:layout_height="34dp"
+                        android:background="@drawable/bg_segment_selected"
+                        android:gravity="center"
+                        android:text="@string/action_longpress"
+                        android:textColor="@color/segment_text"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:background="#E5E5EA" />
+
+            <!-- 左挥参数折叠标题 -->
+            <RelativeLayout
+                android:id="@+id/row_toggle_left_params"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="?attr/selectableItemBackground">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="14dp"
+                    android:text="@string/label_params"
+                    android:textColor="#8E8E93"
+                    android:textSize="13sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/chevron_left_params"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="14dp"
+                    android:src="@drawable/ic_chevron" />
+            </RelativeLayout>
+
+            <!-- 左挥参数区：内容随左挥操作类型联动 -->
+            <LinearLayout
+                android:id="@+id/container_left_params"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/row_swipe_x_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_swipe_x"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_x_minus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/swipe_x_value_l"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_x_plus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_swipe_x_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_swipe_start_y_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_swipe_start"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_start_y_minus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/swipe_start_y_value_l"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_start_y_plus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_swipe_y_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_swipe_end_y_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_swipe_end"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_end_y_minus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/swipe_end_y_value_l"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_end_y_plus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_swipe_end_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_swipe_duration_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_swipe_speed"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_duration_minus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/swipe_duration_value_l"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/swipe_duration_plus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_swipe_dur_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_unit_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_position_unit"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/spinner_unit_l"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:entries="@array/unit_entries"
+                        android:minWidth="100dp"
+                        android:spinnerMode="dropdown"
+                        android:theme="@style/BottomSheetSpinnerItemStyle" />
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_unit_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_click_x_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_click_x"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/click_x_minus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/click_x_value_l"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/click_x_plus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_click_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_click_y_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_click_y"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/click_y_minus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/click_y_value_l"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/click_y_plus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_longpress_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_longpress_x_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_longpress_x"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_x_minus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/longpress_x_value_l"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_x_plus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_longpress_xy_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_longpress_y_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_longpress_y"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_y_minus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/longpress_y_value_l"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_y_plus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:id="@+id/divider_longpress_dur_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <RelativeLayout
+                    android:id="@+id/row_longpress_duration_l"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_longpress_duration"
+                        android:textColor="#1C1C1E"
+                        android:textSize="15sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_duration_minus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_minus" />
+
+                        <TextView
+                            android:id="@+id/longpress_duration_value_l"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:minWidth="46dp"
+                            android:textColor="@color/brand_orange_deep"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <androidx.appcompat.widget.AppCompatImageButton
+                            android:id="@+id/longpress_duration_plus_l"
+                            android:layout_width="34dp"
+                            android:layout_height="34dp"
+                            android:background="?attr/selectableItemBackgroundBorderless"
+                            android:padding="7dp"
+                            android:src="@drawable/ic_plus" />
+                    </LinearLayout>
+                </RelativeLayout>
+            </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:background="#E5E5EA" />
+
+            <!-- Pinch gesture: release after pinching to click -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_pinch"
+                    android:textColor="#1C1C1E"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_pinch"
+                    style="@style/AppSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <!-- 捏合手势下的操作+参数（灰底次级区，未开启时隐藏） -->
+            <LinearLayout
+                android:id="@+id/container_pinch_gesture"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="12dp"
+                android:background="@drawable/bg_sub_group"
+                android:orientation="vertical">
+
+                <!-- 捏合操作分段：上滑/下滑/点击/长按 -->
+                <RelativeLayout
+                    android:id="@+id/row_pinch_action"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/label_pinch_action"
+                        android:textColor="#8E8E93"
+                        android:textSize="13sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/bg_stepper"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:padding="2dp">
+
+                        <TextView
+                            android:id="@+id/seg_pinch_up"
+                            android:layout_width="42dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/bg_segment_selected"
+                            android:gravity="center"
+                            android:text="@string/segment_up"
+                            android:textColor="@color/segment_text"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/seg_pinch_down"
+                            android:layout_width="42dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/bg_segment_selected"
+                            android:gravity="center"
+                            android:text="@string/segment_down"
+                            android:textColor="@color/segment_text"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/seg_pinch_click"
+                            android:layout_width="42dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/bg_segment_selected"
+                            android:gravity="center"
+                            android:text="@string/action_click"
+                            android:textColor="@color/segment_text"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/seg_pinch_longpress"
+                            android:layout_width="42dp"
+                            android:layout_height="34dp"
+                            android:background="@drawable/bg_segment_selected"
+                            android:gravity="center"
+                            android:text="@string/action_longpress"
+                            android:textColor="@color/segment_text"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginStart="14dp"
+                    android:background="#E5E5EA" />
+
+                <!-- 捏合参数折叠标题 -->
+                <RelativeLayout
+                    android:id="@+id/row_toggle_pinch_params"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="?attr/selectableItemBackground">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="14dp"
+                        android:text="@string/label_params"
+                        android:textColor="#8E8E93"
+                        android:textSize="13sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/chevron_pinch_params"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="14dp"
+                        android:src="@drawable/ic_chevron" />
+                </RelativeLayout>
+
+                <!-- 捏合参数区：内容随捏合操作类型联动 -->
+                <LinearLayout
+                    android:id="@+id/container_pinch_params"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/row_swipe_x_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/label_swipe_x"
+                            android:textColor="#1C1C1E"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_stepper"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/swipe_x_minus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_minus" />
+
+                            <TextView
+                                android:id="@+id/swipe_x_value_p"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:minWidth="46dp"
+                                android:textColor="@color/brand_orange_deep"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/swipe_x_plus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_plus" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/divider_swipe_x_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="14dp"
+                        android:background="#E5E5EA" />
+
+                    <RelativeLayout
+                        android:id="@+id/row_swipe_start_y_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/label_swipe_start"
+                            android:textColor="#1C1C1E"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_stepper"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/swipe_start_y_minus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_minus" />
+
+                            <TextView
+                                android:id="@+id/swipe_start_y_value_p"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:minWidth="46dp"
+                                android:textColor="@color/brand_orange_deep"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/swipe_start_y_plus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_plus" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/divider_swipe_y_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="14dp"
+                        android:background="#E5E5EA" />
+
+                    <RelativeLayout
+                        android:id="@+id/row_swipe_end_y_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/label_swipe_end"
+                            android:textColor="#1C1C1E"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_stepper"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/swipe_end_y_minus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_minus" />
+
+                            <TextView
+                                android:id="@+id/swipe_end_y_value_p"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:minWidth="46dp"
+                                android:textColor="@color/brand_orange_deep"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/swipe_end_y_plus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_plus" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/divider_swipe_end_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="14dp"
+                        android:background="#E5E5EA" />
+
+                    <RelativeLayout
+                        android:id="@+id/row_swipe_duration_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/label_swipe_speed"
+                            android:textColor="#1C1C1E"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_stepper"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/swipe_duration_minus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_minus" />
+
+                            <TextView
+                                android:id="@+id/swipe_duration_value_p"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:minWidth="46dp"
+                                android:textColor="@color/brand_orange_deep"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/swipe_duration_plus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_plus" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/divider_swipe_dur_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="14dp"
+                        android:background="#E5E5EA" />
+
+                    <RelativeLayout
+                        android:id="@+id/row_unit_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/label_position_unit"
+                            android:textColor="#1C1C1E"
+                            android:textSize="15sp" />
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/spinner_unit_p"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:entries="@array/unit_entries"
+                            android:minWidth="100dp"
+                            android:spinnerMode="dropdown"
+                            android:theme="@style/BottomSheetSpinnerItemStyle" />
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/divider_unit_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="14dp"
+                        android:background="#E5E5EA" />
+
+                    <RelativeLayout
+                        android:id="@+id/row_click_x_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/label_click_x"
+                            android:textColor="#1C1C1E"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_stepper"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/click_x_minus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_minus" />
+
+                            <TextView
+                                android:id="@+id/click_x_value_p"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:minWidth="46dp"
+                                android:textColor="@color/brand_orange_deep"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/click_x_plus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_plus" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/divider_click_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="14dp"
+                        android:background="#E5E5EA" />
+
+                    <RelativeLayout
+                        android:id="@+id/row_click_y_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/label_click_y"
+                            android:textColor="#1C1C1E"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_stepper"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/click_y_minus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_minus" />
+
+                            <TextView
+                                android:id="@+id/click_y_value_p"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:minWidth="46dp"
+                                android:textColor="@color/brand_orange_deep"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/click_y_plus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_plus" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/divider_longpress_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="14dp"
+                        android:background="#E5E5EA" />
+
+                    <RelativeLayout
+                        android:id="@+id/row_longpress_x_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/label_longpress_x"
+                            android:textColor="#1C1C1E"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_stepper"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/longpress_x_minus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_minus" />
+
+                            <TextView
+                                android:id="@+id/longpress_x_value_p"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:minWidth="46dp"
+                                android:textColor="@color/brand_orange_deep"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/longpress_x_plus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_plus" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/divider_longpress_xy_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="14dp"
+                        android:background="#E5E5EA" />
+
+                    <RelativeLayout
+                        android:id="@+id/row_longpress_y_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/label_longpress_y"
+                            android:textColor="#1C1C1E"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_stepper"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/longpress_y_minus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_minus" />
+
+                            <TextView
+                                android:id="@+id/longpress_y_value_p"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:minWidth="46dp"
+                                android:textColor="@color/brand_orange_deep"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/longpress_y_plus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_plus" />
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <View
+                        android:id="@+id/divider_longpress_dur_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="14dp"
+                        android:background="#E5E5EA" />
+
+                    <RelativeLayout
+                        android:id="@+id/row_longpress_duration_p"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="@string/label_longpress_duration"
+                            android:textColor="#1C1C1E"
+                            android:textSize="15sp" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/bg_stepper"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:padding="2dp">
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/longpress_duration_minus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_minus" />
+
+                            <TextView
+                                android:id="@+id/longpress_duration_value_p"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="center"
+                                android:minWidth="46dp"
+                                android:textColor="@color/brand_orange_deep"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+
+                            <androidx.appcompat.widget.AppCompatImageButton
+                                android:id="@+id/longpress_duration_plus_p"
+                                android:layout_width="34dp"
+                                android:layout_height="34dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:padding="7dp"
+                                android:src="@drawable/ic_plus" />
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/label_feedback_section"
+            android:textColor="#8E8E93"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_group_card"
+            android:orientation="vertical">
+
+            <!-- 閺勫墽銇氬Λ鈧ù瀣絹缁€?-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_show_hint"
+                    android:textColor="#1C1C1E"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_show_hint"
+                    style="@style/AppSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:background="#E5E5EA" />
+
+            <!-- 閸氬骸褰撮弰鍓с仛閹绘劗銇?-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_hint_background"
+                    android:textColor="#1C1C1E"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_hint_background"
+                    style="@style/AppSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:background="#E5E5EA" />
+
+            <!-- 閹绘劗銇氶弮鍫曟毐 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_hint_duration"
+                    android:textColor="#1C1C1E"
+                    android:textSize="15sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/bg_stepper"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:padding="2dp">
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/hint_duration_minus"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="7dp"
+                        android:src="@drawable/ic_minus" />
+
+                    <TextView
+                        android:id="@+id/hint_duration_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:minWidth="46dp"
+                        android:textColor="@color/brand_orange_deep"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <androidx.appcompat.widget.AppCompatImageButton
+                        android:id="@+id/hint_duration_plus"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:background="?attr/selectableItemBackgroundBorderless"
+                        android:padding="7dp"
+                        android:src="@drawable/ic_plus" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <!-- 閳烘劏鏅查埡鎰ㄦ櫜 閸掑棛绮嶉敍姘垛偓姘辨暏 閳烘劏鏅查埡鎰ㄦ櫜 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/label_general_section"
+            android:textColor="#8E8E93"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_group_card"
+            android:orientation="vertical">
+
+            <!-- 閸氬骸褰存０鍕潔閹剚璇炵粣?-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_floating_window"
+                    android:textColor="#1C1C1E"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_floating_window"
+                    style="@style/AppSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:background="#E5E5EA" />
+
+            <!-- 闂囧洤濮╅崣宥夘洯 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_vibration"
+                    android:textColor="#1C1C1E"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/switch_vibration"
+                    style="@style/AppSwitch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:background="#E5E5EA" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_performance_mode"
+                    android:textColor="#1C1C1E"
+                    android:textSize="15sp" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_performance_mode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:entries="@array/performance_mode_entries"
+                    android:minWidth="120dp"
+                    android:spinnerMode="dropdown"
+                    android:theme="@style/BottomSheetSpinnerItemStyle" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="14dp"
+                android:background="#E5E5EA" />
+
+            <!-- 鐠囶叀鈻堥崚鍥ㄥ床 -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/label_language"
+                    android:textColor="#1C1C1E"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/language_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="?attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingStart="14dp"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="8dp"
+                    android:textColor="@color/brand_orange_deep"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <!-- 閺冪娀娈扮喊宥堫啎缂冾喖鍙嗛崣?-->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_accessibility_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_btn_orange_gradient"
+            android:text="@string/button_accessibility_settings"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:rippleColor="#338E8E93" />
+
+        <!-- 鐎瑰苯鍙忛柅鈧崙?-->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_btn_red_gradient"
+            android:text="@string/button_exit"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:rippleColor="#338E8E93" />
+
+        <!-- 后台保活：电池优化白名单 + MIUI 自启动引导 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="6dp"
+            android:text="@string/label_background_keep"
+            android:textColor="#8E8E93"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_group_card"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp">
+
+            <TextView
+                android:id="@+id/keep_battery_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/btn_keep_battery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="14dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="8dp"
+                android:text="@string/keep_battery_button"
+                android:textColor="@color/brand_orange_deep"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/keep_miui_hint"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/btn_keep_miui"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="6dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="14dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="8dp"
+                android:text="@string/keep_miui_button"
+                android:textColor="@color/brand_orange_deep"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <!-- 诊断信息 -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/bg_group_card"
+            android:orientation="vertical"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.06"
+                android:text="@string/label_section_diagnostics"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/diag_version"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/diag_model_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/diag_camera_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/diag_crash_count"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/text_primary"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/btn_export_logs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:background="?attr/selectableItemBackground"
+                android:clickable="true"
+                android:focusable="true"
+                android:paddingStart="14dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="14dp"
+                android:paddingBottom="8dp"
+                android:text="@string/button_export_logs"
+                android:textColor="@color/brand_orange_deep"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</ScrollView>

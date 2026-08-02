@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">隔空助手</string>
+    <string name="app_brand_name">隔空助手</string>
+    <string name="media_pipe">MediaPipe</string>
+
+    <string name="alt_bottom_sheet_chevron">底部面板展开指示</string>
+    <string name="alt_bottom_sheet_max_results_button_minus">减少最大手部数量按钮</string>
+    <string name="alt_bottom_sheet_max_results_button_plus">增加最大手部数量按钮</string>
+    <string name="alt_bottom_sheet_threshold_button_minus">减少手部检测阈值按钮</string>
+    <string name="alt_bottom_sheet_threshold_button_plus">增加手部检测阈值按钮</string>
+
+    <string name="label_inference_time">推理耗时</string>
+    <string name="label_fps">每秒帧数</string>
+    <string name="label_hand_detection_confidence_threshold">检测阈值</string>
+    <string name="label_hand_tracking_confidence_threshold">跟踪阈值</string>
+    <string name="label_hand_presence_confidence_threshold">存在阈值</string>
+    <string name="label_num_hands">手部数量</string>
+    <string name="label_delegate">计算委派</string>
+    <string name="label_gesture_enabled">手势识别</string>
+    <string name="label_swipe_interval">滑动间隔</string>
+    <string name="label_section_params">实时参数</string>
+    <string name="label_section_gesture">手势控制</string>
+    <string name="segment_up">上滑</string>
+    <string name="segment_down">下滑</string>
+    <string name="label_advanced_settings">高级设置</string>
+    <string name="label_show_hint">挥手检测提示</string>
+    <string name="label_hint_background">后台显示提示</string>
+    <string name="label_hint_duration">提示时长</string>
+    <string name="label_floating_window">后台悬浮窗</string>
+    <string name="label_vibration">震动反馈</string>
+    <string name="label_performance_mode">性能模式</string>
+    <string name="performance_mode_auto">自动</string>
+    <string name="performance_mode_power_saving">省电</string>
+    <string name="performance_mode_standard">标准</string>
+    <string name="performance_mode_high_response">高响应</string>
+    <string name="label_language">语言</string>
+    <string name="language_value_en">English</string>
+    <string name="language_value_zh">中文</string>
+    <string name="button_accessibility_settings">无障碍设置</string>
+    <string name="button_exit">退出</string>
+    <string name="button_settings">设置</string>
+    <string name="button_close">关闭</string>
+    <string name="settings_dialog_title">设置</string>
+    <string name="label_swipe_section">滑动设置</string>
+    <string name="label_feedback_section">提示与反馈</string>
+    <string name="label_general_section">通用</string>
+    <string name="label_swipe_x">滑动 X 位置</string>
+    <string name="label_swipe_start">滑动起点（底部）</string>
+    <string name="label_swipe_end">滑动终点（顶部）</string>
+    <string name="label_swipe_speed">滑动速度（时长）</string>
+    <string name="label_swap_directions">交换滑动方向</string>
+
+    <string name="label_click_x">点击 X</string>
+    <string name="label_click_y">点击 Y</string>
+    <string name="label_longpress_x">长按 X</string>
+    <string name="label_longpress_y">长按 Y</string>
+    <string name="label_longpress_duration">长按保持时长</string>
+    <string name="label_position_unit">位置单位</string>
+    <string name="unit_percent">百分比</string>
+    <string name="unit_pixel">坐标</string>
+
+    <string name="feedback_right_wave">检测到右挥手 → 上滑</string>
+    <string name="feedback_left_wave">检测到左挥手 → 下滑</string>
+    <string name="feedback_applied">已生效</string>
+    <string name="feedback_not_applied_cooldown">未生效：间隔未到</string>
+    <string name="feedback_not_applied_disabled">未生效：滑动操作已关闭</string>
+    <string name="feedback_not_applied_accessibility">未生效：无障碍服务未开启</string>
+
+    <string name="accessibility_status_on">● 无障碍：已开启</string>
+    <string name="accessibility_status_off">● 无障碍：未开启</string>
+
+    <string name="label_section_diagnostics">诊断信息</string>
+    <string name="button_export_logs">导出日志</string>
+    <string name="diag_model_ok">模型：已加载</string>
+    <string name="diag_model_failed">模型：加载失败</string>
+    <string name="diag_camera_ok">相机：正常</string>
+    <string name="diag_camera_failed">相机：不可用</string>
+    <string name="diag_crash_count">崩溃记录：%1$d 次</string>
+    <string name="diag_version">版本 %1$s（code %2$d）</string>
+
+    <string name="no_logs">没有可导出的日志</string>
+    <string name="export_failed">日志导出失败</string>
+
+    <string name="crash_recovered">上次应用异常退出，现已恢复正常</string>
+
+    <string name="model_loading">模型加载中…</string>
+    <string name="model_load_failed">手势模型加载失败</string>
+    <string name="model_load_failed_hint">请确认模型文件完整后重试</string>
+    <string name="button_retry">重试</string>
+    <string name="button_go_settings">去设置</string>
+
+    <string name="permission_denied">需要相机权限</string>
+    <string name="permission_required">需要相机权限</string>
+    <string name="permission_guide_settings">手势识别需要相机权限，请在系统设置中开启</string>
+
+    <string name="accessibility_off_prompt">隔空手势控制已停用，点击状态角标可重新开启</string>
+
+    <string name="label_camera_preview">相机画面</string>
+    <string name="camera_preview_off">相机画面已关闭</string>
+    <string name="camera_preview_off_hint">后台隔空手势识别继续运行</string>
+
+    <string name="label_gesture_action_section">手势操作</string>
+    <string name="label_right_wave">右挥手势</string>
+    <string name="label_left_wave">左挥手势</string>
+    <string name="label_pinch">捏合手势</string>
+    <string name="label_pinch_action">捏合操作</string>
+    <string name="feedback_pinch_up">捏合手势 - 上滑</string>
+    <string name="feedback_pinch_down">捏合手势 - 下滑</string>
+    <string name="feedback_pinch_click">捏合手势 - 点击</string>
+    <string name="feedback_pinch_longpress">捏合手势 - 长按</string>
+    <string name="label_right_action">右挥操作</string>
+    <string name="label_left_action">左挥操作</string>
+    <string name="label_gesture_action">操作方式</string>
+    <string name="action_swipe">滑动</string>
+    <string name="action_click">点击</string>
+    <string name="action_longpress">长按</string>
+
+    <string name="quick_gesture_label">滑动操作</string>
+    <string name="quick_camera_label">相机画面</string>
+
+    <string name="label_background_keep">后台保活</string>
+    <string name="keep_battery_ok">电池优化：已加入白名单</string>
+    <string name="keep_battery_off">电池优化：受限制，后台手势可能被系统结束</string>
+    <string name="keep_battery_button">加入白名单</string>
+    <string name="keep_miui_hint">MIUI 提示：建议在应用信息中开启「自启动」以稳定后台识别</string>
+    <string name="keep_miui_button">自启动设置</string>
+
+    <string-array name="performance_mode_entries">
+        <item>@string/performance_mode_auto</item>
+        <item>@string/performance_mode_power_saving</item>
+        <item>@string/performance_mode_standard</item>
+        <item>@string/performance_mode_high_response</item>
+    </string-array>
+</resources>

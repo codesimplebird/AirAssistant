@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    ~ Copyright 2022 The TensorFlow Authors. All Rights Reserved.
+    ~
+    ~ Licensed under the Apache License, Version 2.0 (the "License");
+    ~ you may not use this file except in compliance with the License.
+    ~ You may obtain a copy of the License at
+    ~
+    ~       http://www.apache.org/licenses/LICENSE-2.0
+    ~
+    ~ Unless required by applicable law or agreed to in writing, software
+    ~ distributed under the License is distributed on an "AS IS" BASIS,
+    ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    ~ See the License for the specific language governing permissions and
+    ~ limitations under the License.
+-->
+<resources>
+    <!-- 品牌主色（橘色，全 UI 唯一点缀色） -->
+    <color name="mp_color_primary">#FF7A00</color>
+    <color name="mp_color_primary_variant">#FFA726</color>
+    <color name="mp_color_primary_dark">#E65100</color>
+    <color name="mp_color_secondary">#FFC107</color>
+    <color name="mp_color_secondary_variant">#FFB300</color>
+    <color name="mp_color_error">#FF3B30</color>
+
+    <color name="toolbar_background">#FFFFFF</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
+    <color name="bottom_sheet_background">#FFFFFF</color>
+
+    <!-- 浅色极简基础色（灰阶 + 白） -->
+    <color name="app_background">#F7F7F9</color>
+    <color name="surface_card">#FFFFFF</color>
+    <color name="surface_soft">#F2F2F7</color>
+    <color name="divider">#E5E5EA</color>
+    <color name="text_primary">#1C1C1E</color>
+    <color name="text_secondary">#8E8E93</color>
+    <color name="text_tertiary">#C7C7CC</color>
+    <color name="text_on_accent">#FFFFFF</color>
+
+    <!-- 底部面板 -->
+    <color name="bottom_sheet_text_color">#DE1C1C1E</color>
+    <color name="icActive">#FF1C1C1E</color>
+    <color name="icFocused">#DD1C1C1E</color>
+    <color name="icPressed">#AA1C1C1E</color>
+
+    <!-- 品牌橘色（渐变文字/高亮点缀） -->
+    <color name="brand_orange_start">#FFA726</color>
+    <color name="brand_orange_end">#FF6D00</color>
+    <color name="brand_orange_deep">#E65100</color>
+
+    <!-- 底部面板文字（白卡 + 深色文字） -->
+    <color name="sheet_dark_bg">#FFFFFF</color>
+    <color name="sheet_dark_text">#DE1C1C1E</color>
+    <color name="sheet_dark_accent">#FF7A00</color>
+    <color name="sheet_dark_hint">#8A1C1C1E</color>
+
+    <!-- 手势反馈轻提示（浅底 + 对应深色文字） -->
+    <color name="hint_success_bg">#E8F7EE</color>
+    <color name="hint_cooldown_bg">#FFF4E5</color>
+    <color name="hint_disabled_bg">#F2F2F7</color>
+    <color name="hint_error_bg">#FDECEC</color>
+
+    <!-- 无障碍状态（iOS 风格绿/红） -->
+    <color name="status_ok">#34C759</color>
+    <color name="status_bad">#FF3B30</color>
+</resources>

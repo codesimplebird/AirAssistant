@@ -1,0 +1,479 @@
+<!--
+    ~ Copyright 2022 The TensorFlow Authors. All Rights Reserved.
+    ~
+    ~ Licensed under the Apache License, Version 2.0 (the "License");
+    ~ you may not use this file except in compliance with the License.
+    ~ You may obtain a copy of the License at
+    ~
+    ~       http://www.apache.org/licenses/LICENSE-2.0
+    ~
+    ~ Unless required by applicable law or agreed to in writing, software
+    ~ distributed under the License is distributed on an "AS IS" BASIS,
+    ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    ~ See the License for the specific language governing permissions and
+    ~ limitations under the License.
+-->
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="6dp"
+    android:background="@drawable/bg_bottom_sheet_rounded"
+    android:elevation="16dp"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/bottom_sheet_padding"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="@dimen/bottom_sheet_peek_height"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!-- iOS 风格抓取条（点击可展开/收起面板） -->
+        <View
+            android:id="@+id/sheet_grabber"
+            android:layout_width="36dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/bg_grabber"
+            android:clickable="true"
+            android:focusable="true" />
+
+        <!-- Chevron indicating that the bottom sheet is expandable -->
+        <RelativeLayout
+            android:id="@+id/sheet_handle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/sheet_chevron"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="@string/alt_bottom_sheet_chevron"
+                android:src="@drawable/ic_chevron" />
+        </RelativeLayout>
+
+        <!-- iOS 风格分组标题：实时参数 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="2dp"
+            android:letterSpacing="0.06"
+            android:text="@string/label_section_params"
+            android:textColor="@color/sheet_dark_hint"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <!-- Inference time row -->
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/inference_time_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/label_inference_time"
+                android:textColor="@color/bottom_sheet_text_color"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <TextView
+                android:id="@+id/inference_time_val"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="end"
+                android:text="0ms"
+                android:textColor="@color/sheet_dark_accent"
+                android:textSize="@dimen/bottom_sheet_text_size"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <!-- ML confidence threshold adjustment row -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/label_hand_detection_confidence_threshold"
+                android:textColor="@color/bottom_sheet_text_color"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_stepper_dark"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/detection_threshold_minus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_minus"
+                    android:src="@drawable/ic_minus_white" />
+
+                <TextView
+                    android:id="@+id/detection_threshold_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/bottom_sheet_control_text_side_margin"
+                    android:layout_marginRight="@dimen/bottom_sheet_control_text_side_margin"
+                    android:gravity="center"
+                    android:minEms="@integer/bottom_sheet_control_text_min_ems"
+                    android:textColor="@color/bottom_sheet_text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/detection_threshold_plus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_plus"
+                    android:src="@drawable/ic_plus_white" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/label_hand_tracking_confidence_threshold"
+                android:textColor="@color/bottom_sheet_text_color"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_stepper_dark"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/tracking_threshold_minus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_minus"
+                    android:src="@drawable/ic_minus_white" />
+
+                <TextView
+                    android:id="@+id/tracking_threshold_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/bottom_sheet_control_text_side_margin"
+                    android:layout_marginRight="@dimen/bottom_sheet_control_text_side_margin"
+                    android:gravity="center"
+                    android:minEms="@integer/bottom_sheet_control_text_min_ems"
+                    android:textColor="@color/bottom_sheet_text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/tracking_threshold_plus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_plus"
+                    android:src="@drawable/ic_plus_white" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/label_hand_presence_confidence_threshold"
+                android:textColor="@color/bottom_sheet_text_color"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_stepper_dark"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/presence_threshold_minus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_minus"
+                    android:src="@drawable/ic_minus_white" />
+
+                <TextView
+                    android:id="@+id/presence_threshold_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/bottom_sheet_control_text_side_margin"
+                    android:layout_marginRight="@dimen/bottom_sheet_control_text_side_margin"
+                    android:gravity="center"
+                    android:minEms="@integer/bottom_sheet_control_text_min_ems"
+                    android:textColor="@color/bottom_sheet_text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/presence_threshold_plus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_plus"
+                    android:src="@drawable/ic_plus_white" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- ML max num hands adjustment row -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/label_num_hands"
+                android:textColor="@color/bottom_sheet_text_color"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_stepper_dark"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/max_hands_minus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@string/alt_bottom_sheet_max_results_button_minus"
+                    android:src="@drawable/ic_minus_white" />
+
+                <TextView
+                    android:id="@+id/max_hands_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/bottom_sheet_control_text_side_margin"
+                    android:layout_marginRight="@dimen/bottom_sheet_control_text_side_margin"
+                    android:gravity="center"
+                    android:minEms="@integer/bottom_sheet_control_text_min_ems"
+                    android:textColor="@color/bottom_sheet_text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/max_hands_plus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@string/alt_bottom_sheet_max_results_button_plus"
+                    android:src="@drawable/ic_plus_white" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Delegate selection row -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_delegate"
+                android:textColor="@color/bottom_sheet_text_color"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/spinner_delegate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:entries="@array/delegate_spinner_titles"
+                android:minWidth="@dimen/bottom_sheet_spinner_delegate_min_width"
+                android:spinnerMode="dropdown"
+                android:theme="@style/BottomSheetSpinnerItemStyle" />
+
+        </RelativeLayout>
+
+        <!-- iOS 风格分组标题：手势控制 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="2dp"
+            android:letterSpacing="0.06"
+            android:text="@string/label_section_gesture"
+            android:textColor="@color/sheet_dark_hint"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+
+        <!-- Swipe control master switch -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/label_gesture_enabled"
+                android:textColor="@color/bottom_sheet_text_color"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_gesture_enabled"
+                style="@style/AppSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <!-- 相机画面开关（关闭后前台显示占位，后台手势识别继续） -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/label_camera_preview"
+                android:textColor="@color/bottom_sheet_text_color"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_camera_preview"
+                style="@style/AppSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <!-- Swipe interval (cooldown) row -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/label_swipe_interval"
+                android:textColor="@color/bottom_sheet_text_color"
+                android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/bg_stepper_dark"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="2dp">
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/swipe_interval_minus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_minus"
+                    android:src="@drawable/ic_minus_white" />
+
+                <TextView
+                    android:id="@+id/swipe_interval_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/bottom_sheet_control_text_side_margin"
+                    android:layout_marginRight="@dimen/bottom_sheet_control_text_side_margin"
+                    android:gravity="center"
+                    android:minEms="@integer/bottom_sheet_control_text_min_ems"
+                    android:textColor="@color/bottom_sheet_text_color"
+                    android:textSize="@dimen/bottom_sheet_text_size" />
+
+                <androidx.appcompat.widget.AppCompatImageButton
+                    android:id="@+id/swipe_interval_plus"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:contentDescription="@string/alt_bottom_sheet_threshold_button_plus"
+                    android:src="@drawable/ic_plus_white" />
+            </LinearLayout>
+        </RelativeLayout>
+
+
+        <!-- Accessibility settings shortcut -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_accessibility_settings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:text="@string/button_accessibility_settings"
+            android:textColor="@android:color/white"
+            app:backgroundTint="@color/mp_color_primary_variant"
+            app:cornerRadius="16dp" />
+
+        <!-- Exit button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/bottom_sheet_default_row_margin"
+            android:text="@string/button_exit"
+            android:textColor="@android:color/white"
+            app:backgroundTint="@color/mp_color_primary"
+            app:cornerRadius="16dp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.core.widget.NestedScrollView>
