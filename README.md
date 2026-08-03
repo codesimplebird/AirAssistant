@@ -1,5 +1,7 @@
 # 隔空助手 Air Assistant
 
+[中文](README.md) | [English](README_EN.md)
+
 > 不触屏也能操作手机 —— 用前置摄像头识别手势，通过无障碍服务替你滑动、点击、长按。
 
 基于 Google MediaPipe Hand Landmarker 的 Android 隔空手势控制应用。举起手对着前置摄像头：**左右挥手**滚动页面，**拇指与食指捏合**触发点击/长按/滑动。
