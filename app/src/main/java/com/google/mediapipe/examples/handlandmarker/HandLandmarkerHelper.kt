@@ -49,7 +49,6 @@ class HandLandmarkerHelper(
     // this listener is only used when running in RunningMode.LIVE_STREAM
     val handLandmarkerHelperListener: LandmarkerListener? = null
     ) {
-    // test_zk
     private val waveDetector = WaveDetector()
     private val pinchDetector = PinchDetector()
     private var lastDebounceNotifyTime = 0L
@@ -349,8 +348,6 @@ class HandLandmarkerHelper(
 
     // Return the landmark result to this HandLandmarkerHelper's caller
 
-    // test_zk
-
 
     private fun returnLivestreamResult(
         result: HandLandmarkerResult,
@@ -374,6 +371,8 @@ class HandLandmarkerHelper(
 
 
             val pinch = if (GestureSettings.pinchEnabled) {
+                // 阈值每次读取，设置页修改后立即生效
+                pinchDetector.pinchThreshold = GestureSettings.pinchThreshold
                 pinchDetector.detect(
                     thumbTipX = hand[4].x(),
                     thumbTipY = hand[4].y(),
@@ -395,6 +394,9 @@ class HandLandmarkerHelper(
             // 忽略新的挥手检测，防止收手回滑触发反向滑动
             if (pinch.state == PinchDetector.State.NONE) {
                 waveDetector.debounceMs = GestureSettings.swipeCooldownMs
+                // 幅度/速度阈值每次读取，设置页修改后立即生效
+                waveDetector.minDistance = GestureSettings.waveMinDistance
+                waveDetector.minSpeed = GestureSettings.waveMinSpeed
                 val wave = waveDetector.detect(palmX)
 
                 if (wave.state == WaveDetector.State.DETECTED ||
@@ -435,19 +437,19 @@ class HandLandmarkerHelper(
                                         }
                                         when (action) {
                                             GestureSettings.ACTION_SWIPE_DOWN -> {
-                                                Log.d("HandTest", "WAVE -> swipeDown")
+                                                Log.d(TAG, "WAVE -> swipeDown")
                                                 GestureAccessibilityService.swipeDown()
                                             }
                                             GestureSettings.ACTION_CLICK -> {
-                                                Log.d("HandTest", "WAVE -> click")
+                                                Log.d(TAG, "WAVE -> click")
                                                 GestureAccessibilityService.click()
                                             }
                                             GestureSettings.ACTION_LONG_PRESS -> {
-                                                Log.d("HandTest", "WAVE -> longPress")
+                                                Log.d(TAG, "WAVE -> longPress")
                                                 GestureAccessibilityService.longPress()
                                             }
                                             else -> {
-                                                Log.d("HandTest", "WAVE -> swipeUp")
+                                                Log.d(TAG, "WAVE -> swipeUp")
                                                 GestureAccessibilityService.swipeUp()
                                             }
                                         }
@@ -516,19 +518,19 @@ class HandLandmarkerHelper(
                     effective = true
                     when (GestureSettings.pinchAction) {
                         GestureSettings.ACTION_SWIPE_DOWN -> {
-                            Log.d("HandTest", "PINCH -> swipeDown")
+                            Log.d(TAG, "PINCH -> swipeDown")
                             GestureAccessibilityService.swipeDown()
                         }
                         GestureSettings.ACTION_CLICK -> {
-                            Log.d("HandTest", "PINCH -> click")
+                            Log.d(TAG, "PINCH -> click")
                             GestureAccessibilityService.click()
                         }
                         GestureSettings.ACTION_LONG_PRESS -> {
-                            Log.d("HandTest", "PINCH -> longPress")
+                            Log.d(TAG, "PINCH -> longPress")
                             GestureAccessibilityService.longPress()
                         }
                         else -> {
-                            Log.d("HandTest", "PINCH -> swipeUp")
+                            Log.d(TAG, "PINCH -> swipeUp")
                             GestureAccessibilityService.swipeUp()
                         }
                     }

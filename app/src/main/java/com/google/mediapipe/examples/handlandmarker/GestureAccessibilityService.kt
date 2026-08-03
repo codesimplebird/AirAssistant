@@ -16,6 +16,8 @@ class GestureAccessibilityService : AccessibilityService() {
 
     companion object {
 
+        private const val TAG = "GestureAccessibilityService"
+
         /**
          * 必须 @Volatile：onServiceConnected/onDestroy 在系统 binder 线程回调，
          * 而 isConnected() 与手势派发在 visionExecutor 线程读取，
@@ -30,20 +32,20 @@ class GestureAccessibilityService : AccessibilityService() {
             // 用局部引用，避免检查后、调用前 instance 被 onDestroy 置空
             val svc = instance
             if (svc == null) {
-                Log.w("HandTest", "swipeUp FAILED: AccessibilityService not enabled!")
+                Log.w(TAG, "swipeUp FAILED: AccessibilityService not enabled!")
                 return
             }
-            Log.d("HandTest", "Executing swipeUp")
+            Log.d(TAG, "Executing swipeUp")
             svc.dispatchSwipe(true)
         }
 
         fun swipeDown() {
             val svc = instance
             if (svc == null) {
-                Log.w("HandTest", "swipeDown FAILED: AccessibilityService not enabled!")
+                Log.w(TAG, "swipeDown FAILED: AccessibilityService not enabled!")
                 return
             }
-            Log.d("HandTest", "Executing swipeDown")
+            Log.d(TAG, "Executing swipeDown")
             svc.dispatchSwipe(false)
         }
 
@@ -51,10 +53,10 @@ class GestureAccessibilityService : AccessibilityService() {
         fun click() {
             val svc = instance
             if (svc == null) {
-                Log.w("HandTest", "click FAILED: AccessibilityService not enabled!")
+                Log.w(TAG, "click FAILED: AccessibilityService not enabled!")
                 return
             }
-            Log.d("HandTest", "Executing click")
+            Log.d(TAG, "Executing click")
             svc.dispatchTap(120)
         }
 
@@ -62,10 +64,10 @@ class GestureAccessibilityService : AccessibilityService() {
         fun longPress() {
             val svc = instance
             if (svc == null) {
-                Log.w("HandTest", "longPress FAILED: AccessibilityService not enabled!")
+                Log.w(TAG, "longPress FAILED: AccessibilityService not enabled!")
                 return
             }
-            Log.d("HandTest", "Executing longPress")
+            Log.d(TAG, "Executing longPress")
             svc.dispatchLongPress()
         }
 

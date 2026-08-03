@@ -32,6 +32,9 @@ object GestureSettings {
     private const val KEY_PINCH_ENABLED = "pinch_enabled"
     private const val KEY_PINCH_ACTION = "pinch_action"
     private const val KEY_PERFORMANCE_MODE = "performance_mode"
+    private const val KEY_WAVE_MIN_DISTANCE = "wave_min_distance"
+    private const val KEY_WAVE_MIN_SPEED = "wave_min_speed"
+    private const val KEY_PINCH_THRESHOLD = "pinch_threshold"
     private const val KEY_CLICK_X_PX = "click_x_px"
     private const val KEY_CLICK_Y_PX = "click_y_px"
     private const val KEY_LONGPRESS_X_PX = "longpress_x_px"
@@ -101,6 +104,21 @@ object GestureSettings {
     const val DEFAULT_LEFT_WAVE_ACTION = ACTION_SWIPE_DOWN
     /** 捏合操作默认值：点击 */
     const val DEFAULT_PINCH_ACTION = ACTION_CLICK
+    /** 挥手幅度（归一化位移，越大越迟钝） */
+    const val DEFAULT_WAVE_MIN_DISTANCE = 0.20f
+    const val MIN_WAVE_MIN_DISTANCE = 0.10f
+    const val MAX_WAVE_MIN_DISTANCE = 0.30f
+    const val WAVE_MIN_DISTANCE_STEP = 0.05f
+    /** 挥手速度阈值（/ms，越小越灵敏） */
+    const val DEFAULT_WAVE_MIN_SPEED = 0.0006f
+    const val MIN_WAVE_MIN_SPEED = 0.0003f
+    const val MAX_WAVE_MIN_SPEED = 0.0009f
+    const val WAVE_MIN_SPEED_STEP = 0.0001f
+    /** 捏合识别阈值（归一化距离，越小越难触发） */
+    const val DEFAULT_PINCH_THRESHOLD = 0.35f
+    const val MIN_PINCH_THRESHOLD = 0.25f
+    const val MAX_PINCH_THRESHOLD = 0.45f
+    const val PINCH_THRESHOLD_STEP = 0.05f
     /** 位置单位：0=百分比 1=像素坐标 */
     const val UNIT_PERCENT = 0
     const val UNIT_PIXEL = 1
@@ -181,6 +199,18 @@ object GestureSettings {
     @Volatile
     var pinchAction: Int = DEFAULT_PINCH_ACTION
 
+    /** 挥手幅度阈值（归一化位移） */
+    @Volatile
+    var waveMinDistance: Float = DEFAULT_WAVE_MIN_DISTANCE
+
+    /** 挥手速度阈值（/ms） */
+    @Volatile
+    var waveMinSpeed: Float = DEFAULT_WAVE_MIN_SPEED
+
+    /** 捏合识别阈值（归一化距离） */
+    @Volatile
+    var pinchThreshold: Float = DEFAULT_PINCH_THRESHOLD
+
     /** 右挥操作（0=上滑 1=下滑 2=点击 3=长按） */
     @Volatile
     var rightWaveAction: Int = DEFAULT_RIGHT_WAVE_ACTION
@@ -233,6 +263,15 @@ object GestureSettings {
         leftWaveEnabled = prefs.getBoolean(KEY_LEFT_WAVE_ENABLED, DEFAULT_LEFT_WAVE_ENABLED)
         pinchEnabled = prefs.getBoolean(KEY_PINCH_ENABLED, DEFAULT_PINCH_ENABLED)
         pinchAction = prefs.getInt(KEY_PINCH_ACTION, DEFAULT_PINCH_ACTION)
+        waveMinDistance = prefs.getFloat(
+            KEY_WAVE_MIN_DISTANCE, DEFAULT_WAVE_MIN_DISTANCE
+        ).coerceIn(MIN_WAVE_MIN_DISTANCE, MAX_WAVE_MIN_DISTANCE)
+        waveMinSpeed = prefs.getFloat(
+            KEY_WAVE_MIN_SPEED, DEFAULT_WAVE_MIN_SPEED
+        ).coerceIn(MIN_WAVE_MIN_SPEED, MAX_WAVE_MIN_SPEED)
+        pinchThreshold = prefs.getFloat(
+            KEY_PINCH_THRESHOLD, DEFAULT_PINCH_THRESHOLD
+        ).coerceIn(MIN_PINCH_THRESHOLD, MAX_PINCH_THRESHOLD)
         performanceMode = prefs.getInt(
             KEY_PERFORMANCE_MODE, DEFAULT_PERFORMANCE_MODE
         ).coerceIn(PERFORMANCE_AUTO, PERFORMANCE_HIGH_RESPONSE)
@@ -399,6 +438,21 @@ object GestureSettings {
         save()
     }
 
+    fun updateWaveMinDistance(value: Float) {
+        waveMinDistance = value.coerceIn(MIN_WAVE_MIN_DISTANCE, MAX_WAVE_MIN_DISTANCE)
+        save()
+    }
+
+    fun updateWaveMinSpeed(value: Float) {
+        waveMinSpeed = value.coerceIn(MIN_WAVE_MIN_SPEED, MAX_WAVE_MIN_SPEED)
+        save()
+    }
+
+    fun updatePinchThreshold(value: Float) {
+        pinchThreshold = value.coerceIn(MIN_PINCH_THRESHOLD, MAX_PINCH_THRESHOLD)
+        save()
+    }
+
     fun updateRightWaveAction(action: Int) {
         rightWaveAction = action.coerceIn(0, 3)
         save()
@@ -459,6 +513,9 @@ object GestureSettings {
             ?.putBoolean(KEY_LEFT_WAVE_ENABLED, leftWaveEnabled)
             ?.putBoolean(KEY_PINCH_ENABLED, pinchEnabled)
             ?.putInt(KEY_PINCH_ACTION, pinchAction)
+            ?.putFloat(KEY_WAVE_MIN_DISTANCE, waveMinDistance)
+            ?.putFloat(KEY_WAVE_MIN_SPEED, waveMinSpeed)
+            ?.putFloat(KEY_PINCH_THRESHOLD, pinchThreshold)
             ?.putInt(KEY_PERFORMANCE_MODE, performanceMode)
             ?.putInt(KEY_RIGHT_WAVE_ACTION, rightWaveAction)
             ?.putInt(KEY_LEFT_WAVE_ACTION, leftWaveAction)

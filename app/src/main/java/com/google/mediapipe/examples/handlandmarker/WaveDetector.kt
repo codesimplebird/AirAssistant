@@ -12,8 +12,8 @@ import android.os.SystemClock
  */
 class WaveDetector(
     private val windowMs: Long = 300L,
-    private val minDistance: Float = 0.20f,
-    private val minSpeed: Float = 0.0006f,
+    var minDistance: Float = 0.20f,
+    var minSpeed: Float = 0.0006f,
     /** 时间源，测试时注入可控时钟 */
     private val nowProvider: () -> Long = { SystemClock.uptimeMillis() }
 ) {

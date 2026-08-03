@@ -41,8 +41,8 @@
     </style>
 
     <style name="DialogAnimStyle" parent="@android:style/Animation.Dialog">
-        <item name="android:windowEnterAnimation">@anim/dialog_scale_fade_in</item>
-        <item name="android:windowExitAnimation">@anim/dialog_scale_fade_out</item>
+        <item name="android:windowEnterAnimation">@anim/dialog_slide_in_right</item>
+        <item name="android:windowExitAnimation">@anim/dialog_slide_out_right</item>
     </style>
 
     <!-- iOS 风格开关：开启时轨道为品牌橘色，滑块白色 -->

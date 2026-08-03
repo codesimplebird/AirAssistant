@@ -50,7 +50,8 @@ class HandGestureService : Service(), androidx.lifecycle.LifecycleOwner {
     companion object {
         private const val TAG = "HandGestureService"
         private const val NOTIFICATION_ID = 1001
-        private const val CHANNEL_ID = "hand_gesture_channel"
+        /** 静默级通知通道（独立 id，避免旧通道上用户手动调高的通知设置） */
+        private const val CHANNEL_ID = "hand_gesture_channel_silent"
 
         /**
          * 前台 CameraFragment 注册的回调：主界面/面板开关切换后同步 UI。
@@ -505,14 +506,21 @@ class HandGestureService : Service(), androidx.lifecycle.LifecycleOwner {
 
     private fun createNotification(): Notification {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val channel = NotificationChannel(CHANNEL_ID, "隔空手势识别", NotificationManager.IMPORTANCE_LOW)
+            // 静默级通道：不弹状态栏横幅（前台服务仍保持），避免长时间遮挡屏幕。
+            // 使用独立 channel id，不受旧通道上用户手动调高的通知设置影响。
+            val channel = NotificationChannel(
+                CHANNEL_ID, "隔空手势识别", NotificationManager.IMPORTANCE_MIN
+            )
+            channel.setShowBadge(false)
             getSystemService(NotificationManager::class.java).createNotificationChannel(channel)
         }
         return NotificationCompat.Builder(this, CHANNEL_ID)
             .setContentTitle("隔空手势运行中")
             .setContentText("正在通过摄像头检测挥手动作...")
             .setSmallIcon(android.R.drawable.ic_menu_camera)
-            .setPriority(NotificationCompat.PRIORITY_LOW)
+            .setPriority(NotificationCompat.PRIORITY_MIN)
+            .setSilent(true)
+            .setOngoing(true)
             .build()
     }
 }

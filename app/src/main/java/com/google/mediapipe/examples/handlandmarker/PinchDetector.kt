@@ -4,7 +4,7 @@ import kotlin.math.sqrt
 
 /** Detects a thumb/index pinch using hand-size-normalized landmark distance. */
 class PinchDetector(
-    private val pinchThreshold: Float = DEFAULT_PINCH_THRESHOLD,
+    var pinchThreshold: Float = DEFAULT_PINCH_THRESHOLD,
     private val releaseThreshold: Float = DEFAULT_RELEASE_THRESHOLD,
     private val confirmFrames: Int = DEFAULT_CONFIRM_FRAMES,
     private val debounceMs: Long = DEFAULT_DEBOUNCE_MS,

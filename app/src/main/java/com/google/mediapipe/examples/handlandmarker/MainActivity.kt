@@ -352,6 +352,7 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * 右上角"设置"对话框：滑动参数（坐标/速度/方向）+ 高级设置（提示/悬浮窗/震动/语言）。
+     * 形态：全高右侧面板，从右往左滑入（iOS 风格），宽约 85%，点击外部/返回键关闭。
      */
     private fun showSettingsDialog() {
         val view = layoutInflater.inflate(R.layout.dialog_settings, null)
@@ -361,15 +362,95 @@ class MainActivity : AppCompatActivity() {
             .setNegativeButton(R.string.button_close, null)
             .create()
         dialog.window?.setWindowAnimations(R.style.DialogAnimStyle)
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
         dialog.show()
+        dialog.window?.attributes = dialog.window?.attributes?.apply {
+            width = (resources.displayMetrics.widthPixels * 0.85f).toInt()
+            height = android.view.WindowManager.LayoutParams.MATCH_PARENT
+            gravity = android.view.Gravity.END
+        }
+        // 全屏占满：延伸到状态栏与导航栏区域
+        dialog.window?.addFlags(android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
+        dialog.window?.addFlags(android.view.WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            dialog.window?.setDecorFitsSystemWindows(false)
+        } else {
+            @Suppress("DEPRECATION")
+            dialog.window?.decorView?.systemUiVisibility =
+                android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                    android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        }
+        dialog.window?.statusBarColor = android.graphics.Color.parseColor("#F0F0F5")
+        dialog.window?.navigationBarColor = android.graphics.Color.parseColor("#F0F0F5")
+        @Suppress("DEPRECATION")
+        dialog.window?.decorView?.systemUiVisibility =
+            dialog.window?.decorView?.systemUiVisibility?.or(
+                android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+            )?.or(android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR)
+                ?: android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or
+                    android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR
         bindSettingsDialog(view, dialog)
     }
 
     private fun bindSettingsDialog(view: View, dialog: AlertDialog) {
 
+        // 全屏沉浸：面板背景铺满到状态栏与导航栏后面，
+        // 仅标题区与底部按钮区避让系统栏（背景同色，视觉连片）
+        val panelBg = android.graphics.Color.parseColor("#F0F0F5")
+        dialog.window?.decorView?.let { decor ->
+            androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(decor) { v, insets ->
+                val top = insets.getInsets(
+                    androidx.core.view.WindowInsetsCompat.Type.statusBars()
+                ).top
+                val bottom = insets.getInsets(
+                    androidx.core.view.WindowInsetsCompat.Type.navigationBars()
+                ).bottom
+                val content = v.findViewById<android.view.ViewGroup>(android.R.id.content)
+                val topPanelId = v.resources.getIdentifier("topPanel", "id", "android")
+                val buttonPanelId = v.resources.getIdentifier("buttonPanel", "id", "android")
+                content?.let { c ->
+                    for (i in 0 until c.childCount) {
+                        val panel = c.getChildAt(i)
+                        if (panel is android.view.ViewGroup) {
+                            panel.setBackgroundColor(panelBg)
+                            for (j in 0 until panel.childCount) {
+                                val sub = panel.getChildAt(j)
+                                when (sub?.id) {
+                                    topPanelId -> {
+                                        sub.setBackgroundColor(panelBg)
+                                        sub.setPadding(
+                                            sub.paddingLeft, top,
+                                            sub.paddingRight, sub.paddingBottom
+                                        )
+                                    }
+                                    buttonPanelId -> {
+                                        sub.setBackgroundColor(panelBg)
+                                        sub.setPadding(
+                                            sub.paddingLeft, sub.paddingTop,
+                                            sub.paddingRight, bottom
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                insets
+            }
+        }
+
         // 带后缀的 id 查找（右挥 _r / 左挥 _l 两套参数区共用）
         fun idOf(name: String, s: String = ""): Int =
             view.resources.getIdentifier(name + s, "id", view.context.packageName)
+
+        fun refreshThresholdValues() {
+            view.findViewById<TextView>(R.id.wave_distance_value).text =
+                String.format(Locale.US, "%.2f", GestureSettings.waveMinDistance)
+            view.findViewById<TextView>(R.id.wave_speed_value).text =
+                String.format(Locale.US, "%.4f", GestureSettings.waveMinSpeed)
+            view.findViewById<TextView>(R.id.pinch_threshold_value).text =
+                String.format(Locale.US, "%.2f", GestureSettings.pinchThreshold)
+        }
 
         fun refresh() {
             listOf("_r", "_l", "_p").forEach { s ->
@@ -384,12 +465,15 @@ class MainActivity : AppCompatActivity() {
             }
             view.findViewById<TextView>(R.id.hint_duration_value).text =
                 String.format(Locale.US, "%.1fs", GestureSettings.hintDurationMs / 1000f)
+            view.findViewById<TextView>(R.id.swipe_interval_value).text =
+                String.format(Locale.US, "%.1fs", GestureSettings.swipeCooldownMs / 1000f)
             view.findViewById<TextView>(R.id.language_value).text =
                 if (LocaleHelper.getLanguage(this@MainActivity) == "zh") {
                     getString(R.string.language_value_zh)
                 } else {
                     getString(R.string.language_value_en)
                 }
+            refreshThresholdValues()
         }
 
         fun bindStepper(
@@ -524,6 +608,122 @@ class MainActivity : AppCompatActivity() {
                 }
             )
         }
+
+        // ── 检测阈值（挥手幅度 / 挥手速度 / 捏合识别阈值，实时生效） ──
+        bindStepper(
+            R.id.wave_distance_minus,
+            R.id.wave_distance_plus,
+            R.id.wave_distance_value,
+            {
+                GestureSettings.updateWaveMinDistance(
+                    GestureSettings.waveMinDistance - GestureSettings.WAVE_MIN_DISTANCE_STEP
+                )
+                refresh()
+            },
+            {
+                GestureSettings.updateWaveMinDistance(
+                    GestureSettings.waveMinDistance + GestureSettings.WAVE_MIN_DISTANCE_STEP
+                )
+                refresh()
+            }
+        )
+        bindStepper(
+            R.id.wave_speed_minus,
+            R.id.wave_speed_plus,
+            R.id.wave_speed_value,
+            {
+                GestureSettings.updateWaveMinSpeed(
+                    GestureSettings.waveMinSpeed - GestureSettings.WAVE_MIN_SPEED_STEP
+                )
+                refresh()
+            },
+            {
+                GestureSettings.updateWaveMinSpeed(
+                    GestureSettings.waveMinSpeed + GestureSettings.WAVE_MIN_SPEED_STEP
+                )
+                refresh()
+            }
+        )
+        bindStepper(
+            R.id.pinch_threshold_minus,
+            R.id.pinch_threshold_plus,
+            R.id.pinch_threshold_value,
+            {
+                GestureSettings.updatePinchThreshold(
+                    GestureSettings.pinchThreshold - GestureSettings.PINCH_THRESHOLD_STEP
+                )
+                refresh()
+            },
+            {
+                GestureSettings.updatePinchThreshold(
+                    GestureSettings.pinchThreshold + GestureSettings.PINCH_THRESHOLD_STEP
+                )
+                refresh()
+            }
+        )
+        bindStepper(
+            R.id.swipe_interval_minus,
+            R.id.swipe_interval_plus,
+            R.id.swipe_interval_value,
+            {
+                GestureSettings.updateSwipeCooldownMs(
+                    GestureSettings.swipeCooldownMs - GestureSettings.COOLDOWN_STEP_MS
+                )
+                refresh()
+            },
+            {
+                GestureSettings.updateSwipeCooldownMs(
+                    GestureSettings.swipeCooldownMs + GestureSettings.COOLDOWN_STEP_MS
+                )
+                refresh()
+            }
+        )
+
+        // ── 问号帮助（重要设置项说明） ──
+        fun bindHelp(helpId: Int, titleRes: Int, messageRes: Int) {
+            view.findViewById<View>(helpId).setOnClickListener {
+                it.performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
+                MaterialAlertDialogBuilder(this@MainActivity)
+                    .setTitle(titleRes)
+                    .setMessage(messageRes)
+                    .setPositiveButton(R.string.button_close, null)
+                    .show()
+            }
+        }
+        bindHelp(R.id.help_right_wave, R.string.label_right_wave, R.string.help_right_wave)
+        bindHelp(R.id.help_left_wave, R.string.label_left_wave, R.string.help_left_wave)
+        bindHelp(R.id.help_pinch, R.string.label_pinch, R.string.help_pinch)
+        bindHelp(
+            R.id.help_wave_distance,
+            R.string.label_wave_displacement,
+            R.string.help_wave_distance
+        )
+        bindHelp(R.id.help_wave_speed, R.string.label_wave_speed, R.string.help_wave_speed)
+        bindHelp(
+            R.id.help_pinch_threshold,
+            R.string.label_pinch_threshold,
+            R.string.help_pinch_threshold
+        )
+        bindHelp(
+            R.id.help_performance_mode,
+            R.string.label_performance_mode,
+            R.string.help_performance_mode
+        )
+        bindHelp(
+            R.id.help_swipe_interval,
+            R.string.label_swipe_interval,
+            R.string.help_swipe_interval
+        )
+        bindHelp(
+            R.id.help_floating_window,
+            R.string.label_floating_window,
+            R.string.help_floating_window
+        )
+        bindHelp(
+            R.id.help_hint_background,
+            R.string.label_hint_background,
+            R.string.help_hint_background
+        )
 
         // ── 手势操作（右挥/左挥开关 + 各自绑定操作方式） ──
         view.findViewById<SwitchCompat>(R.id.switch_right_wave).isChecked =
@@ -697,6 +897,8 @@ class MainActivity : AppCompatActivity() {
         var rightParamsExpanded = true
         var leftParamsExpanded = true
         var pinchParamsExpanded = true
+        var gestureActionsExpanded = false
+        var advancedSettingsExpanded = false
 
         fun applyParamsExpanded(containerId: Int, chevronId: Int, expanded: Boolean) {
             val container = view.findViewById<View>(containerId)
@@ -734,6 +936,32 @@ class MainActivity : AppCompatActivity() {
             pinchParamsExpanded = !pinchParamsExpanded
             applyParamsExpanded(R.id.container_pinch_params, R.id.chevron_pinch_params, pinchParamsExpanded)
         }
+        view.findViewById<View>(R.id.row_toggle_gesture_actions).setOnClickListener {
+            gestureActionsExpanded = !gestureActionsExpanded
+            applyParamsExpanded(
+                R.id.container_gesture_actions,
+                R.id.chevron_gesture_actions,
+                gestureActionsExpanded
+            )
+        }
+        view.findViewById<View>(R.id.row_toggle_advanced_settings).setOnClickListener {
+            advancedSettingsExpanded = !advancedSettingsExpanded
+            applyParamsExpanded(
+                R.id.container_advanced_settings,
+                R.id.chevron_advanced_settings,
+                advancedSettingsExpanded
+            )
+        }
+        applyParamsExpanded(
+            R.id.container_gesture_actions,
+            R.id.chevron_gesture_actions,
+            gestureActionsExpanded
+        )
+        applyParamsExpanded(
+            R.id.container_advanced_settings,
+            R.id.chevron_advanced_settings,
+            advancedSettingsExpanded
+        )
 
         // 行显隐带淡入淡出动效
         fun animateVisibility(v: View, visible: Boolean) {

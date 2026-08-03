@@ -79,6 +79,15 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_card_params"
+            android:orientation="vertical"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+
         <!-- Inference time row -->
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -91,6 +100,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@string/label_inference_time"
                 android:textColor="@color/bottom_sheet_text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
@@ -116,12 +128,28 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/label_detection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@string/label_hand_detection_confidence_threshold"
                 android:textColor="@color/bottom_sheet_text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <ImageView
+                android:id="@+id/help_detection_threshold"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/label_detection"
+                android:contentDescription="@string/help_desc"
+                android:padding="2dp"
+                android:src="@drawable/ic_help_question"
+                app:tint="#FFB37A" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -167,12 +195,28 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/label_tracking"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@string/label_hand_tracking_confidence_threshold"
                 android:textColor="@color/bottom_sheet_text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <ImageView
+                android:id="@+id/help_tracking_threshold"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/label_tracking"
+                android:contentDescription="@string/help_desc"
+                android:padding="2dp"
+                android:src="@drawable/ic_help_question"
+                app:tint="#FFB37A" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -218,12 +262,28 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/label_presence"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@string/label_hand_presence_confidence_threshold"
                 android:textColor="@color/bottom_sheet_text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <ImageView
+                android:id="@+id/help_presence_threshold"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/label_presence"
+                android:contentDescription="@string/help_desc"
+                android:padding="2dp"
+                android:src="@drawable/ic_help_question"
+                app:tint="#FFB37A" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -270,12 +330,28 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/label_num_hands"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@string/label_num_hands"
                 android:textColor="@color/bottom_sheet_text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <ImageView
+                android:id="@+id/help_num_hands"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/label_num_hands"
+                android:contentDescription="@string/help_desc"
+                android:padding="2dp"
+                android:src="@drawable/ic_help_question"
+                app:tint="#FFB37A" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -320,11 +396,28 @@
             android:layout_marginTop="@dimen/bottom_sheet_default_row_margin">
 
             <TextView
+                android:id="@+id/label_delegate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@string/label_delegate"
                 android:textColor="@color/bottom_sheet_text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <ImageView
+                android:id="@+id/help_delegate"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/label_delegate"
+                android:contentDescription="@string/help_desc"
+                android:padding="2dp"
+                android:src="@drawable/ic_help_question"
+                app:tint="#FFB37A" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/spinner_delegate"
@@ -337,6 +430,8 @@
                 android:theme="@style/BottomSheetSpinnerItemStyle" />
 
         </RelativeLayout>
+
+        </LinearLayout>
 
         <!-- iOS 风格分组标题：手势控制 -->
         <TextView
@@ -351,6 +446,15 @@
             android:textSize="12sp"
             android:textStyle="bold" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/bg_card_sheet_gesture"
+            android:orientation="vertical"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp">
+
         <!-- Swipe control master switch -->
         <RelativeLayout
             android:layout_width="match_parent"
@@ -360,12 +464,28 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/label_gesture_enabled"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@string/label_gesture_enabled"
                 android:textColor="@color/bottom_sheet_text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <ImageView
+                android:id="@+id/help_gesture_enabled"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/label_gesture_enabled"
+                android:contentDescription="@string/help_desc"
+                android:padding="2dp"
+                android:src="@drawable/ic_help_question"
+                app:tint="#FFB37A" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_gesture_enabled"
@@ -385,12 +505,28 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/label_camera_preview"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@string/label_camera_preview"
                 android:textColor="@color/bottom_sheet_text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <ImageView
+                android:id="@+id/help_camera_preview"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/label_camera_preview"
+                android:contentDescription="@string/help_desc"
+                android:padding="2dp"
+                android:src="@drawable/ic_help_question"
+                app:tint="#FFB37A" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/switch_camera_preview"
@@ -410,12 +546,28 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/label_swipe_interval"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_marginStart="4dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@string/label_swipe_interval"
                 android:textColor="@color/bottom_sheet_text_color"
                 android:textSize="@dimen/bottom_sheet_text_size" />
+
+            <ImageView
+                android:id="@+id/help_swipe_interval"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:layout_toEndOf="@id/label_swipe_interval"
+                android:contentDescription="@string/help_desc"
+                android:padding="2dp"
+                android:src="@drawable/ic_help_question"
+                app:tint="#FFB37A" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -452,6 +604,8 @@
                     android:src="@drawable/ic_plus_white" />
             </LinearLayout>
         </RelativeLayout>
+
+        </LinearLayout>
 
 
         <!-- Accessibility settings shortcut -->

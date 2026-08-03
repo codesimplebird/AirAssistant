@@ -326,6 +326,17 @@ class CameraFragment : Fragment(), HandLandmarkerHelper.LandmarkerListener {
         val sheet = fragmentCameraBinding.bottomSheetLayout
         val chevron = sheet.sheetChevron
         val behavior = BottomSheetBehavior.from(sheet.root)
+        // 展开时不全屏：面板高度限制为容器 80%，顶部保留 20%（内容超高时
+        // 仅设 expandedOffset 会被 Behavior 忽略，必须同时限制面板高度）
+        sheet.root.post {
+            val parentH = (sheet.root.parent as? View)?.height
+                ?: resources.displayMetrics.heightPixels
+            val sheetH = (parentH * 0.8f).toInt()
+            val lp = sheet.root.layoutParams
+            lp.height = sheetH
+            sheet.root.layoutParams = lp
+            behavior.setExpandedOffset(parentH - sheetH)
+        }
         var sheetState = BottomSheetBehavior.STATE_COLLAPSED
 
         /**
@@ -539,6 +550,50 @@ class CameraFragment : Fragment(), HandLandmarkerHelper.LandmarkerListener {
         attachTapHaptic(fragmentCameraBinding.bottomSheetLayout.swipeIntervalPlus)
         attachTapHaptic(fragmentCameraBinding.bottomSheetLayout.btnAccessibilitySettings)
         attachTapHaptic(fragmentCameraBinding.bottomSheetLayout.btnExit)
+
+        // ── 问号帮助（设置项说明弹窗） ──
+        fun bindHelp(helpId: Int, titleRes: Int, messageRes: Int) {
+            requireView().findViewById<View>(helpId).setOnClickListener {
+                it.performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
+                com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(titleRes)
+                    .setMessage(messageRes)
+                    .setPositiveButton(R.string.button_close, null)
+                    .show()
+            }
+        }
+        bindHelp(
+            R.id.help_detection_threshold,
+            R.string.label_hand_detection_confidence_threshold,
+            R.string.help_detection_threshold
+        )
+        bindHelp(
+            R.id.help_tracking_threshold,
+            R.string.label_hand_tracking_confidence_threshold,
+            R.string.help_tracking_threshold
+        )
+        bindHelp(
+            R.id.help_presence_threshold,
+            R.string.label_hand_presence_confidence_threshold,
+            R.string.help_presence_threshold
+        )
+        bindHelp(R.id.help_num_hands, R.string.label_num_hands, R.string.help_num_hands)
+        bindHelp(R.id.help_delegate, R.string.label_delegate, R.string.help_delegate)
+        bindHelp(
+            R.id.help_gesture_enabled,
+            R.string.label_gesture_enabled,
+            R.string.help_gesture_enabled
+        )
+        bindHelp(
+            R.id.help_camera_preview,
+            R.string.label_camera_preview,
+            R.string.help_camera_preview
+        )
+        bindHelp(
+            R.id.help_swipe_interval,
+            R.string.label_swipe_interval,
+            R.string.help_swipe_interval
+        )
     }
 
     /** 按下时轻震（不拦截点击） */
