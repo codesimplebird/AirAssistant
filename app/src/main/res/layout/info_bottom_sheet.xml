@@ -76,7 +76,7 @@
             android:letterSpacing="0.06"
             android:text="@string/label_section_params"
             android:textColor="@color/sheet_dark_hint"
-            android:textSize="12sp"
+            android:textSize="@dimen/sheet_section_text_size"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -443,7 +443,7 @@
             android:letterSpacing="0.06"
             android:text="@string/label_section_gesture"
             android:textColor="@color/sheet_dark_hint"
-            android:textSize="12sp"
+            android:textSize="@dimen/sheet_section_text_size"
             android:textStyle="bold" />
 
         <LinearLayout

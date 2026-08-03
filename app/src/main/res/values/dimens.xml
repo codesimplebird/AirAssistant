@@ -30,4 +30,9 @@
 
     <integer name="bottom_sheet_control_text_min_ems">3</integer>
     <dimen name="fab_margin">16dp</dimen>
+
+    <!-- 分区标题 / 主页快捷标签 / 状态角标（英文环境在 values-en 中缩小） -->
+    <dimen name="sheet_section_text_size">12sp</dimen>
+    <dimen name="quick_label_text_size">11sp</dimen>
+    <dimen name="badge_text_size">12sp</dimen>
 </resources>

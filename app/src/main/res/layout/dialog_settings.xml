@@ -3068,22 +3068,16 @@
                     android:ellipsize="end"
                     android:textSize="15sp" />
 
-                <TextView
-                    android:id="@+id/language_value"
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/spinner_language"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:background="?attr/selectableItemBackground"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:paddingStart="14dp"
-                    android:paddingTop="8dp"
-                    android:paddingEnd="14dp"
-                    android:paddingBottom="8dp"
-                    android:textColor="@color/brand_orange_deep"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
+                    android:entries="@array/language_entries"
+                    android:minWidth="100dp"
+                    android:spinnerMode="dropdown"
+                    android:theme="@style/BottomSheetSpinnerItemStyle" />
             </RelativeLayout>
         </LinearLayout>
 

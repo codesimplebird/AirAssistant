@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 英文界面字号适配：文字更长，缩小字号避免挤压/重叠 -->
+    <dimen name="bottom_sheet_text_size">14sp</dimen>
+    <dimen name="sheet_section_text_size">11sp</dimen>
+    <dimen name="quick_label_text_size">10sp</dimen>
+    <dimen name="badge_text_size">11sp</dimen>
+</resources>

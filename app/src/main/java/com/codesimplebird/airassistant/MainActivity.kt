@@ -467,12 +467,6 @@ class MainActivity : AppCompatActivity() {
                 String.format(Locale.US, "%.1fs", GestureSettings.hintDurationMs / 1000f)
             view.findViewById<TextView>(R.id.swipe_interval_value).text =
                 String.format(Locale.US, "%.1fs", GestureSettings.swipeCooldownMs / 1000f)
-            view.findViewById<TextView>(R.id.language_value).text =
-                if (LocaleHelper.getLanguage(this@MainActivity) == "zh") {
-                    getString(R.string.language_value_zh)
-                } else {
-                    getString(R.string.language_value_en)
-                }
             refreshThresholdValues()
         }
 
@@ -1148,14 +1142,23 @@ class MainActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
-        // 语言切换：立即生效并记住选择
-        view.findViewById<TextView>(R.id.language_value).setOnClickListener {
-            it.performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
-            val newLang =
-                if (LocaleHelper.getLanguage(this) == "en") "zh" else "en"
-            LocaleHelper.setLanguage(this, newLang)
-            dialog.dismiss()
-            recreate()
+        // 语言下拉框：选择后立即生效并记住选择（选项固定「中文 / English」）
+        val languageSpinner =
+            view.findViewById<androidx.appcompat.widget.AppCompatSpinner>(R.id.spinner_language)
+        languageSpinner.setSelection(
+            if (LocaleHelper.getLanguage(this@MainActivity) == "zh") 0 else 1
+        )
+        languageSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>?, v: View?, pos: Int, id: Long) {
+                val current = if (LocaleHelper.getLanguage(this@MainActivity) == "zh") 0 else 1
+                if (pos == current) return
+                v?.performHapticFeedback(HapticFeedbackConstants.CONTEXT_CLICK)
+                LocaleHelper.setLanguage(this@MainActivity, if (pos == 0) "zh" else "en")
+                dialog.dismiss()
+                recreate()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
 
         // 无障碍设置快捷入口

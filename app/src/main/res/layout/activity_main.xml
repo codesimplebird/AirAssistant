@@ -103,7 +103,7 @@
             android:paddingEnd="12dp"
             android:paddingBottom="5dp"
             android:textColor="@color/text_primary"
-            android:textSize="12sp" />
+            android:textSize="@dimen/badge_text_size" />
 
         <!-- 主界面快捷开关：手势识别 + 相机画面（透明小开关条，无需展开面板即可开关） -->
         <LinearLayout
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/quick_gesture_label"
                 android:textColor="@color/text_secondary"
-                android:textSize="11sp" />
+                android:textSize="@dimen/quick_label_text_size" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/quick_gesture_switch"
@@ -149,7 +149,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/quick_camera_label"
                 android:textColor="@color/text_secondary"
-                android:textSize="11sp" />
+                android:textSize="@dimen/quick_label_text_size" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/quick_camera_switch"
