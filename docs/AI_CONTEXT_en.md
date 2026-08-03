@@ -16,7 +16,7 @@ without touching the screen.
 - Kotlin; AGP 8.13.2; minSdk 24 / targetSdk 34 / compileSdk 34; ViewBinding
 - CameraX 1.4.2 (core/camera2/lifecycle/view); MediaPipe `tasks-vision:0.10.29`;
   Navigation 2.5.3; Material 1.7.0
-- namespace/applicationId: `com.google.mediapipe.examples.handlandmarker`
+- namespace/applicationId: `com.codesimplebird.airassistant`
 
 ## Key files (one-line role)
 

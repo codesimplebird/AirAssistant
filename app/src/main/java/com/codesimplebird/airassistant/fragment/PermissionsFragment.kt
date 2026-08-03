@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.mediapipe.examples.handlandmarker.fragment
+package com.codesimplebird.airassistant.fragment
 
 import android.Manifest
 import android.content.Context
@@ -29,7 +29,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.mediapipe.examples.handlandmarker.R
+import com.codesimplebird.airassistant.R
 
 private val PERMISSIONS_REQUIRED = arrayOf(Manifest.permission.CAMERA)
 

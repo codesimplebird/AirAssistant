@@ -1,4 +1,4 @@
-package com.google.mediapipe.examples.handlandmarker
+package com.codesimplebird.airassistant
 
 import android.content.Context
 

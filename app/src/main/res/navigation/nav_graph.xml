@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/permissions_fragment"
-        android:name="com.google.mediapipe.examples.handlandmarker.fragment.PermissionsFragment"
+        android:name="com.codesimplebird.airassistant.fragment.PermissionsFragment"
         android:label="PermissionsFragment">
 
         <action
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/camera_fragment"
-        android:name="com.google.mediapipe.examples.handlandmarker.fragment.CameraFragment"
+        android:name="com.codesimplebird.airassistant.fragment.CameraFragment"
         android:label="CameraFragment">
 
         <action

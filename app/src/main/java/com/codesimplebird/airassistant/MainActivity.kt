@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.mediapipe.examples.handlandmarker
+package com.codesimplebird.airassistant
 
 import android.os.Bundle
 import android.util.Log
@@ -30,7 +30,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.navigation.fragment.NavHostFragment
 import androidx.core.view.WindowInsetsControllerCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.google.mediapipe.examples.handlandmarker.databinding.ActivityMainBinding
+import com.codesimplebird.airassistant.databinding.ActivityMainBinding
 import android.content.Intent
 import android.Manifest
 import android.content.pm.PackageManager

@@ -1,4 +1,4 @@
-package com.google.mediapipe.examples.handlandmarker
+package com.codesimplebird.airassistant
 
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue

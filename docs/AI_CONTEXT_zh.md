@@ -13,7 +13,7 @@ MediaPipe Tasks 官方 Android 手部关键点示例（Kotlin）+ 自研"隔空�
 - Kotlin；AGP 8.13.2；minSdk 24 / targetSdk 34 / compileSdk 34；ViewBinding
 - CameraX 1.4.2（core/camera2/lifecycle/view）；MediaPipe `tasks-vision:0.10.29`；
   Navigation 2.5.3；Material 1.7.0
-- namespace/applicationId：`com.google.mediapipe.examples.handlandmarker`
+- namespace/applicationId：`com.codesimplebird.airassistant`
 
 ## 关键文件（一句话角色）
 

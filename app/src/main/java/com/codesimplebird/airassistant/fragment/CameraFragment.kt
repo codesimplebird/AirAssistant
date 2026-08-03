@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.google.mediapipe.examples.handlandmarker.fragment
+package com.codesimplebird.airassistant.fragment
 
 import android.annotation.SuppressLint
 import android.content.res.Configuration
@@ -47,17 +47,17 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.mediapipe.examples.handlandmarker.HandLandmarkerHelper
-import com.google.mediapipe.examples.handlandmarker.AppLog
-import com.google.mediapipe.examples.handlandmarker.HandGestureService
-import com.google.mediapipe.examples.handlandmarker.GestureSettings
-import com.google.mediapipe.examples.handlandmarker.GestureFeedbackText
-import com.google.mediapipe.examples.handlandmarker.LandmarkerManager
-import com.google.mediapipe.examples.handlandmarker.MainActivity
-import com.google.mediapipe.examples.handlandmarker.MainViewModel
-import com.google.mediapipe.examples.handlandmarker.R
-import com.google.mediapipe.examples.handlandmarker.WaveDetector
-import com.google.mediapipe.examples.handlandmarker.databinding.FragmentCameraBinding
+import com.codesimplebird.airassistant.HandLandmarkerHelper
+import com.codesimplebird.airassistant.AppLog
+import com.codesimplebird.airassistant.HandGestureService
+import com.codesimplebird.airassistant.GestureSettings
+import com.codesimplebird.airassistant.GestureFeedbackText
+import com.codesimplebird.airassistant.LandmarkerManager
+import com.codesimplebird.airassistant.MainActivity
+import com.codesimplebird.airassistant.MainViewModel
+import com.codesimplebird.airassistant.R
+import com.codesimplebird.airassistant.WaveDetector
+import com.codesimplebird.airassistant.databinding.FragmentCameraBinding
 import com.google.mediapipe.tasks.vision.core.RunningMode
 import java.util.Locale
 

@@ -5,7 +5,7 @@
 ## 1. 项目概览
 
 - **位置**：`mediapipe-samples/examples/hand_landmarker/android`
-- **包名**：`com.google.mediapipe.examples.handlandmarker`
+- **包名**：`com.codesimplebird.airassistant`
 - **本质**：手机相机实时识别手掌，通过「右挥手/左挥手」等手势控制手机（滑动/点击/长按），服务常驻后台（无障碍服务 + 前台服务）
 - **真机**：小米 10 Pro（1080x2340），Android 12（MIUI）
 - **UI 风格（用户要求，不可逆）**：浅色极简（白底 + 灰阶 #1C1C1E/#8E8E93/#E5E5EA + 品牌橙 #FF7A00 点缀），**全部移除渐变**，状态栏可见（微信风格深色图标），底部面板白卡，无多余装饰
