@@ -3,6 +3,8 @@
 <details open>
 <summary><strong>中文</strong></summary>
 
+> [打开双语项目主页（支持页面内 Tab 切换）](https://codesimplebird.github.io/AirAssistant/)
+
 
 > 不触屏也能操作手机 —— 用前置摄像头识别手势，通过无障碍服务替你滑动、点击、长按。
 
