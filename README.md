@@ -74,10 +74,10 @@ gradlew.bat app:assembleDebug --offline
 
 | 权限 | 用途 |
 |---|---|
-| CAMERA | 前置摄像头手势识别（核心功能） |
+| 相机权限 | 前置摄像头手势识别（核心功能） |
 | 无障碍服务 | 派发滑动/点击/长按系统手势（核心功能） |
-| SYSTEM_ALERT_WINDOW | 可选：后台悬浮窗预览 |
-| POST_NOTIFICATIONS | Android 13+ 前台服务通知 |
+| 悬浮窗权限 | 可选：后台悬浮窗预览 |
+| 通知权限 | Android 13+ 前台服务通知 |
 
 ## 兼容性
 
