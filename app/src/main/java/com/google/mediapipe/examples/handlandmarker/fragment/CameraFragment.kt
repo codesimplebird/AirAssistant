@@ -591,15 +591,14 @@ class CameraFragment : Fragment(), HandLandmarkerHelper.LandmarkerListener {
     /** 相机画面开关：开启预览（前台接管相机，服务释放） */
     private fun enableCameraPreview() {
         applyCameraPreviewState(true)
-        val svc = HandGestureService.instance
-        if (svc != null) {
-            svc.releaseCamera()
-        } else {
-            // 服务未启动时直接重新绑定
-            setUpCamera()
-        }
+        HandGestureService.instance?.releaseCamera()
+        // 前台接管识别结果（releaseCamera 会清空 activeListener）
+        LandmarkerManager.activeListener = this
         if (cameraProvider != null) {
             fragmentCameraBinding.viewFinder.post { bindCameraUseCases() }
+        } else {
+            // 默认相机画面关闭时 Fragment 从未初始化相机，这里补上初始化
+            setUpCamera()
         }
     }
 
