@@ -18,7 +18,7 @@
 
 ## 下载
 
-APK 请到 [Releases](https://github.com/yourname/AirAssistant/releases) 页面下载。
+APK 请到 [Releases](https://github.com/codesimplebird/AirAssistant/releases) 页面下载。
 
 > 无障碍服务类应用无法上架主流应用商店（Google Play / 华为 / 小米等均有严格审核），
 > 因此通过 GitHub Releases 直接分发安装包。安装后请在系统「无障碍」中手动开启本应用。
