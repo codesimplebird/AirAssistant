@@ -61,7 +61,9 @@ gradlew.bat app:assembleDebug --offline
 
 1. 生成 keystore（**务必备份，丢失后无法发布升级包**）：
    ```bash
+   cd app
    keytool -genkeypair -v -keystore release.keystore -alias air -keyalg RSA -keysize 2048 -validity 10000
+   cd ..
    ```
 2. 复制 `keystore.properties.example` 为 `keystore.properties` 并填写密码
    （该文件已被 .gitignore 排除，不会入库）
